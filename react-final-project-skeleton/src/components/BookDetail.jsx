@@ -27,7 +27,22 @@ const BookDetail = ({ id }) => {
     navigate(`/edit/${id}`);
   };
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    const confirmed = window.confirm("Delete this book?");
+
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(`http://localhost:3000/books/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete book");
+      dispatch({ type: "DELETE_BOOK", payload: id });
+      navigate("/");
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <>
