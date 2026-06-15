@@ -23,7 +23,9 @@ const BookDetail = ({ id }) => {
 
   if (!book) return <Loading />;
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    navigate(`/edit/${id}`);
+  };
 
   const handleDelete = () => {};
 
