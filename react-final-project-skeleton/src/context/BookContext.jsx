@@ -33,7 +33,7 @@ export const BookProvider = ({ children }) => {
   return (
     <BookContext.Provider
       value={{
-        book: state.books,
+        books: state.books,
         dispatch,
         loading,
         error,
