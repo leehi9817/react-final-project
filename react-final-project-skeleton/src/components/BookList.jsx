@@ -11,7 +11,35 @@ const BookList = () => {
   if (loading) return <Loading />;
   if (error) return <Error />;
 
-  return <section className={styles.list}></section>;
+  return (
+    <section className={styles.list}>
+      {books.map((book) => (
+        <article key={book.id} className={styles.item}>
+          <div>{getBookEmoji(book.id)}</div>
+          <div>
+            <h3>{book.title}</h3>
+            <p>
+              {book.author} / {book.genre}
+            </p>
+            <p className={styles.rating}>{renderStars(book.rating)}</p>
+          </div>
+          <div>
+            <button
+              className={
+                styles.toggleButton + (book.available ? "" : ` ${styles.off}`)
+              }
+              onClick={() => toggleAvailable(book.id, book.available)}
+            >
+              {book.available ? "Available" : "Unavailable"}
+            </button>
+            <Link className={styles.link} to={`/books/${book.id}`}>
+              Details
+            </Link>
+          </div>
+        </article>
+      ))}
+    </section>
+  );
 };
 
 export default BookList;
