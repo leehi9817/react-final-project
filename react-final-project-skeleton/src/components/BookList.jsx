@@ -11,6 +11,27 @@ const BookList = () => {
   if (loading) return <Loading />;
   if (error) return <Error />;
 
+  const toggleAvailable = async (id, currentAvailable) => {
+    try {
+      const response = await fetch(`http://localhost:3000/books/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ available: !currentAvailable }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update availability");
+      }
+
+      const updatedBook = await response.json();
+      dispatch({ type: "UPDATE_BOOK", payload: updatedBook });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <section className={styles.list}>
       {books.map((book) => (
