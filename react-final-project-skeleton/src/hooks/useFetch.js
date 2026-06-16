@@ -18,8 +18,8 @@ export const useFetch = (endpoint, options) => {
         }
         const result = await response.json();
         setData(result);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        setError(error.message);
       } finally {
         setLoading(false);
       }

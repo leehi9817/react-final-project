@@ -27,8 +27,8 @@ const BookList = () => {
 
       const updatedBook = await response.json();
       dispatch({ type: "UPDATE_BOOK", payload: updatedBook });
-    } catch (err) {
-      console.error(err.message);
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
