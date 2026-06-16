@@ -21,7 +21,23 @@ const EditBook = () => {
     fetchBook();
   }, [id]);
 
-  const handleUpdateBook = async (updatedBook) => {};
+  const handleUpdateBook = async (updatedBook) => {
+    try {
+      const response = await fetch(`http://localhost:3000/books/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedBook),
+      });
+
+      if (!response.ok) throw new Error("Failed to update book");
+
+      const data = await response.json();
+      dispatch({ type: "UPDATE_BOOK", payload: data });
+      navigate("/");
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   if (!bookData) {
     return <Loading />;
